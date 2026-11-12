@@ -3,92 +3,141 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>YourStartup</title>
-  <meta name="description" content="A student startup prototype for BSAD 281.">
+  <meta name="description" content="Keep your mini collection and D&D initiative in one place.">
+  <title>Critical Fail Cavern</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- =========================================================
-       HEADER: logo text + navigation.
-       Each link points to a "view" further down the page (#home, #explore, #about).
-       ========================================================= -->
   <header class="site-header">
-    <a class="brand" href="#home" id="brand-name">YourStartup</a>
-    <nav aria-label="Main">
+    <a class="brand" href="#home" aria-label="Critical Fail Cavern home">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>Critical Fail <span class="brand-accent">Cavern</span></span>
+    </a>
+    <nav aria-label="Main navigation">
       <a href="#home">Home</a>
-      <a href="#explore">Explore</a>
-      <a href="#about">About</a>
+      <a href="#minis">Mini Vault</a>
+      <a href="#initiative">Initiative</a>
     </nav>
   </header>
 
   <main>
-
-    <!-- =======================================================
-         VIEW 1: HOME — what you do, for whom, and why it matters.
-         ======================================================= -->
     <section id="home" data-view>
       <div class="hero">
-        <p class="eyebrow">Prototype</p>
-        <h1 id="tagline">One sentence that says what your startup does.</h1>
-        <p class="lead" id="pitch">
-          Who is your customer, what problem do they have, and why is your
-          solution better than what they use today?
-        </p>
-        <a class="button" href="#explore">See it in action</a>
-      </div>
-
-      <div class="steps">
-        <div class="card">
-          <h2>1. Step one</h2>
-          <p>Describe the first thing a customer does.</p>
-        </div>
-        <div class="card">
-          <h2>2. Step two</h2>
-          <p>Describe what happens next.</p>
-        </div>
-        <div class="card">
-          <h2>3. Step three</h2>
-          <p>Describe the result the customer gets.</p>
+        <p class="eyebrow">Your tabletop command center</p>
+        <h1>Make room for <span class="gold-text">legendary</span> adventures.</h1>
+        <p class="lead">Keep your miniature collection close and your next encounter moving. Everything you add is saved in this browser.</p>
+        <div class="hero-actions">
+          <a class="button" href="#initiative">Track initiative <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="#minis">Open mini vault</a>
         </div>
       </div>
+      <div class="feature-grid">
+        <a class="feature-card" href="#minis">
+          <span class="feature-icon" aria-hidden="true">♟</span>
+          <h2>Your Mini Vault</h2>
+          <p>Catalog your minis, add a photo, and keep track of which ones are painted.</p>
+          <span class="feature-link">Browse collection <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="feature-card" href="#initiative">
+          <span class="feature-icon" aria-hidden="true">⚔</span>
+          <h2>Initiative Tracker</h2>
+          <p>Line up the party and foes, see whose turn it is, and advance the round.</p>
+          <span class="feature-link">Start an encounter <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
     </section>
 
-    <!-- =======================================================
-         VIEW 2: EXPLORE — a list built from the fake data in data.js.
-         ======================================================= -->
-    <section id="explore" data-view hidden>
-      <h1>Explore</h1>
-      <p class="muted">These examples are fake. They come from <code>data.js</code>.</p>
+    <section id="minis" data-view hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Collection</p>
+          <h1>Mini Vault</h1>
+          <p class="muted">A little home for every hero, monster, and questionable painting decision.</p>
+        </div>
+        <span class="count-badge" id="mini-count">0 minis</span>
+      </div>
 
-      <label class="search">
-        <span>Search</span>
-        <input type="search" id="search-box" placeholder="Type to filter…">
-      </label>
+      <div class="content-layout">
+        <form class="panel form-panel" id="mini-form">
+          <h2>Add a mini</h2>
+          <label>
+            Mini name
+            <input id="mini-name" name="name" type="text" maxlength="80" placeholder="e.g. Mossbeard" required>
+          </label>
+          <label>
+            Type
+            <input id="mini-type" name="type" type="text" maxlength="60" placeholder="e.g. Druid, Goblin, Dragon" required>
+          </label>
+          <label class="upload-field">
+            Photo <span class="optional">(optional)</span>
+            <input id="mini-photo" name="photo" type="file" accept="image/*">
+            <span class="upload-hint">Choose an image from this device</span>
+          </label>
+          <label class="checkbox-row" for="mini-painted">
+            <input id="mini-painted" name="painted" type="checkbox">
+            <span>Painted</span>
+          </label>
+          <button class="button" type="submit">Add to vault <span aria-hidden="true">+</span></button>
+          <p class="form-message" id="mini-message" role="status" aria-live="polite"></p>
+        </form>
 
-      <p class="muted" id="saved-count"></p>
-      <div class="grid" id="listing-grid"></div>
-      <p class="empty" id="empty-message" hidden>Nothing matches your search.</p>
+        <div class="collection-area">
+          <label class="search-label" for="mini-search">Search your vault</label>
+          <input class="search-input" id="mini-search" type="search" placeholder="Search by name or type">
+          <div class="mini-grid" id="mini-list"></div>
+          <p class="empty-state" id="mini-empty">Your vault is waiting for its first mini.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- =======================================================
-         VIEW 3: ABOUT — your team and your story.
-         ======================================================= -->
-    <section id="about" data-view hidden>
-      <h1>About us</h1>
-      <p>Tell the story of why your team started this company.</p>
-      <p>Use first names only, or no names at all — this site is public.</p>
-    </section>
+    <section id="initiative" data-view hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Encounter tools</p>
+          <h1>Initiative Tracker</h1>
+          <p class="muted">Add combatants in initiative order and keep the encounter rolling.</p>
+        </div>
+        <button class="button secondary compact" id="reset-encounter" type="button">Clear encounter</button>
+      </div>
 
+      <div class="initiative-layout">
+        <div class="panel turn-panel">
+          <p class="eyebrow">Now acting</p>
+          <p class="round-label" id="round-label">Round 1</p>
+          <h2 class="current-name" id="current-name">No combatants yet</h2>
+          <p class="muted" id="current-initiative">Add a combatant to begin.</p>
+          <button class="button end-turn-button" id="end-turn" type="button" disabled>End turn <span aria-hidden="true">→</span></button>
+          <p class="form-message" id="turn-message" role="status" aria-live="polite"></p>
+        </div>
+
+        <form class="panel form-panel combatant-form" id="combatant-form">
+          <h2>Add combatant</h2>
+          <label>
+            Name
+            <input id="combatant-name" type="text" maxlength="80" placeholder="Character or creature" required>
+          </label>
+          <label>
+            Initiative
+            <input id="combatant-initiative" type="number" step="1" placeholder="Roll result" required>
+          </label>
+          <button class="button" type="submit">Add to order <span aria-hidden="true">+</span></button>
+          <p class="form-message" id="combatant-message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="order-heading">
+        <h2>Turn order</h2>
+        <span class="muted" id="combatant-count">0 combatants</span>
+      </div>
+      <ol class="turn-order" id="turn-order"></ol>
+      <p class="empty-state order-empty" id="order-empty">The turn order will appear here.</p>
+    </section>
   </main>
 
-  <!-- Keep this footer. Your site must say it is a student project. -->
   <footer class="site-footer">
-    <p>Student prototype for BSAD 281 at St. Francis Xavier University. Not a real company — all data is fictional.</p>
+    <span class="footer-brand">Critical Fail Cavern</span>
+    <span>Student prototype for BSAD 281 at St. Francis Xavier University. Not a real company — all data is fictional.</span>
   </footer>
 
-  <!-- Scripts load in this order: data first, then the code that uses it. -->
-  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
